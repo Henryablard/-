@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import os
 # 设置页面标题
-st.set_page_config(page_title="和成天下VIP会员群调研", layout="wide")
+st.set_page_config(page_title="槟榔调研", layout="wide")
 st.title("📝 槟榔调研问卷")
 
 # 加载 .env 文件中的环境变量

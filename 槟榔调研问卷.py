@@ -11,7 +11,7 @@ load_dotenv()
 
 # 配置API（实际部署时应使用环境变量）
 api_key = os.getenv("DEEPSEEK_API_KEY")
-base_url = os.getenv("DEEPSEEK_BASE_URL")
+base_url = os.getenv("DEEPSEEK_BASE_URL2")
 
 # 问题列表
 questions = [

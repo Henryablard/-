@@ -1,0 +1,4 @@
+python-dotenv>=1.0.0
+streamlit>=1.25.0
+requests>=2.31.0
+openai>=1.0.0  # 如果用到 OpenAI 相关功能

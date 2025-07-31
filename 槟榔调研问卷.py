@@ -12,7 +12,7 @@ load_dotenv()
 # 配置API（实际部署时应使用环境变量）
 api_key = os.getenv("DEEPSEEK_API_KEY")
 base_url = os.getenv("DEEPSEEK_BASE_URL2")
-
+deepseek_chat = os.getenv("DEEPSEEK_CHAT")
 # 问题列表
 questions = [
     {"key": "q1", "text": "Q1：您现在户籍在哪个城市，父母所从事的工作是什么？", "required": True},

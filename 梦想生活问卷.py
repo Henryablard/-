@@ -157,4 +157,21 @@ def make_api_request(url, headers, payload, max_retries=3):
 # 页脚
 st.markdown("---")
 st.caption("© 2025 AI梦想生活助手 | Powered by DeepSeek API")
+
+#设置背景颜色
+gradient_direction = "to right"  # 渐变方向：to right/to left/to top/to bottom
+start_color = "#ffffff"           # 起始颜色（纯白）
+end_color = "#D3D3D3"             # 终止颜色（浅灰）
+
+st.markdown(
+    f"""
+    <style>
+    [data-testid="stAppViewContainer"] {{
+        background: linear-gradient({gradient_direction}, {start_color}, {end_color});
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 #streamlit run 调查问卷.py

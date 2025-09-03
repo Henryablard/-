@@ -1,0 +1,112 @@
+import time
+import types
+import schedule
+
+# 完整的schedule修补
+class Job:
+    def __init__(self, interval=1):
+        self.interval = interval
+        self.job_func = None
+        self.at_time = None
+        self.unit = None
+        self.start_day = None
+
+    def at(self, time_str):
+        self.at_time = time_str
+        return self
+
+    def do(self, job_func):
+        self.job_func = job_func
+        return self
+
+    def seconds(self):
+        self.unit = 'seconds'
+        return self
+
+    def minutes(self):
+        self.unit = 'minutes'
+        return self
+
+    def hours(self):
+        self.unit = 'hours'
+        return self
+
+    def days(self):
+        self.unit = 'days'
+        return self
+
+    def weeks(self):
+        self.unit = 'weeks'
+        return self
+
+    def monday(self):
+        self.unit = 'weeks'
+        self.start_day = 'monday'
+        return self
+
+    def friday(self):
+        self.unit = 'weeks'
+        self.start_day = 'friday'
+        return self
+
+def every(self, interval=1):
+    return Job(interval)
+
+# 关键修补点：必须同时修补schedule模块和实例
+schedule.default_scheduler = schedule.Scheduler()
+schedule.every = types.MethodType(every, schedule.default_scheduler)
+schedule.Job = Job
+
+def run_pending():
+    schedule.default_scheduler.run_pending()
+
+schedule.run_pending = run_pending
+# 修补结束
+
+def send_weekly_report():
+    # 配置信息
+    sender =               # 发件邮箱
+    password =             # 邮箱授权码
+    receiver =             # 收件人
+    smtp_server =          # 邮箱服务器
+
+    # 构造周报内容
+    week = datetime.datetime.now().strftime("%Y年第%W周")
+    content = f"""
+    【{week}工作周报】
+    - hi 这是自动发送的工作周报
+    - 本周完成：
+      1.带薪摸鱼
+      2.快乐摸鱼
+      希望你周末过的开心哦
+    - 下周计划：
+      1. 项目A: 继续带薪摸鱼
+      2. 项目B: 更新自动发送工作周报
+    """
+
+    # 设置邮件内容
+    msg = MIMEMultipart()
+    msg["From"] = sender
+    msg["To"] = receiver
+    msg["Subject"] = f"{week}工作周报 - Henry"
+    msg.attach(MIMEText(content, "plain", "utf-8"))
+
+    # 发送邮件
+    server = None
+    try:
+        server = smtplib.SMTP_SSL(smtp_server, 465)
+        server.login(sender, password)
+        server.sendmail(sender, [receiver], msg.as_string())
+        print(f"{datetime.datetime.now()} 周报发送成功！")
+    except Exception as e:
+        print(f"{datetime.datetime.now()} 发送失败: {e}")
+    finally:
+        if server:
+            server.quit()
+    pass
+
+# 现在可以正确使用
+schedule.every().friday.days().at("18:00").do(send_weekly_report)
+while True:
+    schedule.run_pending()
+    time.sleep(60)
